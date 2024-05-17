@@ -1,18 +1,34 @@
-<div class="flex flex-col gap-2">
-  <div class="flex flex-wrap gap-2 justify-between">
+<div class="h-full flex flex-col gap-2">
+  <button (click)="toggleAddPopup()" class="max-w-[15rem] mx-10" icon="pi pi-plus" label="Add Product" pButton
+          type="button"></button>
+  <div class="flex flex-wrap gap-2 justify-between h-full mx-10">
     <app-product
+      (productOutput)="onProductOutput($event)"
       *ngFor="let product of products"
       [product]="product"
-      (productOutput)="onProductOutput($event)"
     ></app-product>
   </div>
 
-  <div class="flex-auto">
+  <div class="flex-1">
     <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [rowsPerPageOptions]="[5, 10, 20]"
       [rows]="rows"
       [totalRecords]="totalRecords"
-      [rowsPerPageOptions]="[5, 10, 20]"
-      (onPageChange)="onPageChange($event)"
     ></p-paginator>
   </div>
+
+  <app-edit-popup
+    (productOutput)="onConfirmEdit($event)"
+    [display]="displayEditPopup"
+    [product]="selectedProduct"
+    header="Add Product"
+  ></app-edit-popup>
+
+  <app-edit-popup
+    (productOutput)="onConfirmAdd($event)"
+    [display]="displayAddPopup"
+    [product]="selectedProduct"
+    header="Add Product"
+  ></app-edit-popup>
 </div>
