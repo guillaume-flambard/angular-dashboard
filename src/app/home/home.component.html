@@ -3,7 +3,8 @@
           type="button"></button>
   <div class="flex flex-wrap gap-2 justify-between h-full mx-10">
     <app-product
-      (productOutput)="onProductOutput($event)"
+      (delete)="toggleDeletePopup($event)"
+      (edit)="toggleEditPopup($event)"
       *ngFor="let product of products"
       [product]="product"
     ></app-product>
@@ -11,23 +12,26 @@
 
   <div class="flex-1">
     <p-paginator
+      #paginator
       (onPageChange)="onPageChange($event)"
       [rowsPerPageOptions]="[5, 10, 20]"
       [rows]="rows"
       [totalRecords]="totalRecords"
     ></p-paginator>
+
   </div>
 
   <app-edit-popup
-    (productOutput)="onConfirmEdit($event)"
-    [display]="displayEditPopup"
+
+    (confirm)="onConfirmEdit($event)"
+    [(display)]="displayEditPopup"
     [product]="selectedProduct"
-    header="Add Product"
+    header="Edit Product"
   ></app-edit-popup>
 
   <app-edit-popup
-    (productOutput)="onConfirmAdd($event)"
-    [display]="displayAddPopup"
+    (confirm)="onConfirmAdd($event)"
+    [(display)]="displayAddPopup"
     [product]="selectedProduct"
     header="Add Product"
   ></app-edit-popup>

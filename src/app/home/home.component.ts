@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
-import {Component} from '@angular/core';
-import {PaginatorModule} from 'primeng/paginator';
+import {Component, ViewChild} from '@angular/core';
+import {Paginator, PaginatorModule} from 'primeng/paginator';
 import {Product, Products} from '../../types';
 import {EditPopupComponent} from '../components/edit-popup/edit-popup.component';
 import {ProductComponent} from '../components/product/product.component';
@@ -21,6 +21,7 @@ import {ButtonModule} from "primeng/button";
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  @ViewChild("paginator") paginator: Paginator | undefined;
   products: Product[] = [];
   totalRecords: number = 0;
   rows: number = 5;
@@ -37,6 +38,13 @@ export class HomeComponent {
   constructor(private productsService: ProductsService) {
   }
 
+  toggleDeletePopup(product: Product) {
+    if (!product.id) {
+      return;
+    }
+    this.deleteProduct(product.id);
+  }
+
   toggleEditPopup(product: Product) {
     this.selectedProduct = product;
     this.displayEditPopup = !this.displayEditPopup;
@@ -47,7 +55,7 @@ export class HomeComponent {
   }
 
   onProductOutput(product: Product) {
-    console.log(product);
+    console.log(product, 'output');
   }
 
   onConfirmEdit(product: Product) {
@@ -65,6 +73,10 @@ export class HomeComponent {
 
   onPageChange(event: any) {
     this.fetchProducts(event.page, event.rows);
+  }
+
+  resetPaginator = () => {
+    this.paginator?.changePage(0);
   }
 
   fetchProducts(page: number, perPage: number) {
@@ -87,6 +99,7 @@ export class HomeComponent {
       .subscribe({
         next: (data) => {
           this.fetchProducts(0, this.rows);
+          this.resetPaginator()
           console.log(data);
         },
         error: (error) => {
@@ -101,6 +114,7 @@ export class HomeComponent {
       .subscribe({
         next: (data) => {
           this.fetchProducts(0, this.rows);
+          this.resetPaginator()
           console.log(data);
         },
         error: (error) => {

@@ -16,24 +16,26 @@ import {ButtonModule} from "primeng/button";
 })
 export class EditPopupComponent {
   @Input() display: boolean = false;
+  @Output() displayChange = new EventEmitter<boolean>();
+
   @Input() header!: string;
 
   @Output() confirm: EventEmitter<Product> = new EventEmitter<Product>();
-  @Output() cancel: EventEmitter<any> = new EventEmitter<void>();
-
   @Input() product: Product = {
     name: '',
     image: '',
     rating: 0,
     price: '',
   };
-  @Output() productOutput: EventEmitter<Product> = new EventEmitter<Product>();
 
   onConfirm() {
     this.confirm.emit(this.product);
+    this.display = false;
+    this.displayChange.emit(this.display);
   }
 
   onCancel() {
     this.display = false;
+    this.displayChange.emit(this.display);
   }
 }

@@ -27,6 +27,7 @@
         placeholder="Enter product price"
         type="number"
       />
+
     </div>
     <div class="flex items-center justify-between gap-2 my-1">
       <label for="image">Image:</label>
@@ -39,10 +40,21 @@
         type="text"
       />
     </div>
+    <div class="flex items-center gap-2 my-1">
+      <label for="rating">Rating:</label>
+      <p-rating
+        [(ngModel)]="product.rating"
+        [cancel]="false"
+        [readonly]="false"
+        iconCancelClass="hidden"
+        id="rating"
+      ></p-rating>
+    </div>
   </div>
 
   <p-footer>
     <button
+      
       (click)="onConfirm()"
       icon="pi pi-check"
       label="Add"
