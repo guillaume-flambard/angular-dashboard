@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Paginator, PaginatorModule} from 'primeng/paginator';
 import {Product, Products} from '../../types';
 import {EditPopupComponent} from '../components/edit-popup/edit-popup.component';
@@ -20,7 +20,7 @@ import {ButtonModule} from "primeng/button";
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   @ViewChild("paginator") paginator: Paginator | undefined;
   products: Product[] = [];
   totalRecords: number = 0;
@@ -52,10 +52,6 @@ export class HomeComponent {
 
   toggleAddPopup() {
     this.displayAddPopup = true;
-  }
-
-  onProductOutput(product: Product) {
-    console.log(product, 'output');
   }
 
   onConfirmEdit(product: Product) {

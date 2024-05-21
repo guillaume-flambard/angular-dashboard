@@ -4,11 +4,15 @@
     alt="Product Thumbnail"
     class="aspect-square rounded-lg object-cover w-full h-[200px] shadow-sm hover:shadow-md cursor-pointer hover:opacity-90 hover:scale-105 transition-all duration-300 ease-in-out"
   />
-  <h2 class="text-xl font-semibold">{{ product.name }}</h2>
+  <h2 class="text-xl font-semibold">
+    {{ product.name | truncateName : 16 : "..." }}
+  </h2>
 
   <div class="flex items-baseline gap-1">
     <span class="price-label text-sm text-gray-500 text-bolder">Price:</span>
-    <span class="price font-semibold text-gray-600">{{ product.price }}</span>
+    <span class="price font-semibold text-gray-600">{{
+      product.price | price
+    }}</span>
   </div>
 
   <p-rating
@@ -26,7 +30,8 @@
       pButton
       severity="secondary"
       size="small"
-      type="button"></button>
+      type="button"
+    ></button>
     <button
       #deleteButton
       (click)="confirmDelete()"
@@ -41,6 +46,4 @@
   </div>
 </div>
 
-<p-confirmPopup>
-
-</p-confirmPopup>
+<p-confirmPopup> </p-confirmPopup>

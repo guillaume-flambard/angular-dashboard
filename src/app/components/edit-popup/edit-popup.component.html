@@ -4,11 +4,11 @@
   [modal]="true"
   header="Add Product"
 >
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2" [formGroup]="productForm">
     <div class="flex items-center justify-between gap-2 my-1">
       <label for="name">Name:</label>
       <input
-        [(ngModel)]="product.name"
+        formControlName="name"
         class="w-auto"
         id="name"
         pInputText
@@ -20,19 +20,18 @@
     <div class="flex items-center justify-between gap-2 my-1">
       <label for="price">Price:</label>
       <input
-        [(ngModel)]="product.price"
+        formControlName="price"
         class="w-auto"
         id="price"
         pInputText
         placeholder="Enter product price"
         type="number"
       />
-
     </div>
     <div class="flex items-center justify-between gap-2 my-1">
       <label for="image">Image:</label>
       <input
-        [(ngModel)]="product.image"
+        formControlName="image"
         class="w-auto"
         id="image"
         pInputText
@@ -43,7 +42,7 @@
     <div class="flex items-center gap-2 my-1">
       <label for="rating">Rating:</label>
       <p-rating
-        [(ngModel)]="product.rating"
+        formControlName="rating"
         [cancel]="false"
         [readonly]="false"
         iconCancelClass="hidden"
@@ -54,12 +53,13 @@
 
   <p-footer>
     <button
-      
       (click)="onConfirm()"
+      [disabled]="!productForm.valid"
       icon="pi pi-check"
       label="Add"
       pButton
       type="button"
+      [class.disabled]="!productForm.valid"
     ></button>
     <button
       (click)="onCancel()"

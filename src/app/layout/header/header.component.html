@@ -6,4 +6,8 @@
     class="object-contain h-full"
     height="40"
     ngSrc="assets/images/oc-logo.svg" priority width="350"/>
+  <div class="flex gap-2">
+    <a [routerLinkActiveOptions]="{exact:true}" routerLink="/" routerLinkActive="active">Home</a>
+    <a routerLink="/about-us" routerLinkActive="active">About</a>
+  </div>
 </header>
